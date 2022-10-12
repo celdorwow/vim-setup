@@ -1,0 +1,71 @@
+global !p
+def complete(t, opts):
+	if t:
+		opts = [m[len(t):] for m in opts if m.startswith(t)]
+	if len(opts) == 1:
+		return opts[0]
+	return "|".join(opts)
+endglobal
+
+# Run this to update snippets
+# :call UltiSnips#RefreshSnippets()
+
+
+### Document class ###
+# simple choice: \\documentclass${1:[${2:12pt}]}{${3|article,report,book|}}
+
+# Document with options
+snippet '^doc' "Document class" r
+\\documentclass${1:[${2}]}{$3`!p snip.rv=complete(t[3] , ["article", "report", "book"])`}${0}
+endsnippet
+
+# The whole template
+snippet '^doct' "Document template" r
+\\documentclass{article}
+% Tables
+\\usepackage{array}
+\\usepackage{siunitx}
+% Maths
+\\usepackage{amsmath,amssymb,amsthm}
+\\usepackage{mathtools}
+% Colours
+\\usepackage{xcolor}
+
+% Page reference - delete after draft
+\\usepackage{showframe}
+  \\renewcommand*{\\ShowFrameLinethickness}{0.2pt}
+	\\renewcommand*{\\ShowFrameColor}{\color{blue}}
+\\usepackage{kantlipsum}
+
+
+\\begin{document}
+\kant
+\\end{document}
+endsnippet
+
+
+### Preamble ###
+snippet "^upfr" "Show frame around a page" rb
+\\usepackage{showframe}
+  \\renewcommand*{\\ShowFrameLinethickness}{0.2pt}
+	\\renewcommand*{\\r}{\color{blue}}
+endsnippet
+
+snippet "use?|up" "usepackage - removes square braces if options removed" rb
+\\usepackage${1:[${2:options}]}{${3:package}}$0
+endsnippet
+
+### Tables ###
+snippet "^uptbrr" "Load packages and libraries for tabularray" rb
+\\usepackage{tabularray}
+  \\UseTblrLibrary{booktabs,siunitx}
+endsnippet
+
+### To export to vim-snippets
+# Exported
+snippet tabu "Tabular(s)" b
+\\begin{tabular$1}`!p if t[1] == "x" or t[1] == "*": snip.rv=r"{\linewidth}"`{${2:cc}}
+	$0X & X \\\\
+\\end{tabular$1}
+endsnippet
+
