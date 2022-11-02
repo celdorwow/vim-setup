@@ -3,13 +3,13 @@
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
 " Declare the list of plugins.
-Plug 'lervag/vimtex'
+Plug 'https://github.com/lervag/vimtex'
 Plug 'https://github.com/peterbjorgensen/sved' " For emulating synctex with Evince 
 Plug 'https://github.com/sirver/UltiSnips' " Adds snippets  Vim/NVim
 Plug 'https://github.com/celdorwow/vim-snippets' " Forked vim-snippets
 " Plug 'https://github.com/honza/vim-snippets' " Community maintained snippets for languages
-Plug 'rmehri01/onenord.nvim', {'branch': 'main'}
-Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
+Plug 'https://github.com/rmehri01/onenord.nvim', {'branch': 'main'}
+Plug 'https://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
@@ -29,7 +29,7 @@ call plug#end()
 " ... NordTree
 " nnoremap <C-f> :NERDTreeFocus<CR>
 " nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
+" nnoremap <C-t> :NERDTreeToggle<CR>
 " ... Air-line
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -41,8 +41,10 @@ nmap <F4> :call SVED_Sync()<CR>
 let g:UltiSnipsSnippetDirectories=['UltiSnips']
 let g:UltiSnipsEditSplit='context'
 " let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" Vimtex
+autocmd FileType tex nmap <expr> <buffer> <F5> empty(glob(expand("%:p:r").".log")) ? ":echo expand(\"%:p:r\").'.log does not exist!'<CR>" : ":split \| view %:p:r.log<CR>"
 
 " Set enconding to UTF-8
 set encoding=utf-8
@@ -81,18 +83,9 @@ let g:python3_host_prog = '/usr/bin/python3'
 " ... enable all Python syntax highlighting features
 let python_highlight_all = 1
 
-"augroup CtagsGroup
-"  autocmd!
-"  autocmd BufRead * call FindTagsFileInGitDir(expand("<afile>"))
-"augroup END
-
-" autocmd BufRead *.py setlocal colorcolumn = 0
+"autocmd BufRead *.py setlocal colorcolumn = 0
 "autocmd FileType python set colorcolumn=120
 hi ColorColumn ctermbg=8
-
-" Add empty lines
-"map <Enter> o<ESC>
-"map <S-Enter> O<ESC>
 
 " Set mouse to active
 " set mouse=a
@@ -101,4 +94,7 @@ hi ColorColumn ctermbg=8
 let maplocalleader = ","
 let g:vimtex_view_method = 'general'
 " let g:vimtex_compiler_latexmk['build_dir'] = ''
+
+" Expand aliases
+let $BASH_ENV = "~/.bash_aliases"
 
