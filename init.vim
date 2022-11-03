@@ -19,6 +19,7 @@ Plug 'https://github.com/vim-airline/vim-airline-themes'
 Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
 Plug 'https://github.com/tc50cal/vim-terminal' " Adds :Terminal bash, :TerminalTab, :TerminalSplit, and :TerminalVSplit
 Plug 'https://github.com/hrsh7th/nvim-cmp'
+"Plug 'https://github.com/rhysd/clever-split.vim'
 "Plug 'nvim-treesitter/nvim-treesitter' " Adds org-mode
 "Plug 'nvim-orgmode/orgmode'            " ...
 
