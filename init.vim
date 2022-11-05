@@ -1,28 +1,30 @@
 " PUGINS
 " Plugins will be downloaded under the specified directory.
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-
 " Declare the list of plugins.
-Plug 'https://github.com/lervag/vimtex'
-Plug 'https://github.com/peterbjorgensen/sved' " For emulating synctex with Evince 
-Plug 'https://github.com/sirver/UltiSnips' " Adds snippets  Vim/NVim
-Plug 'https://github.com/celdorwow/vim-snippets' " Forked vim-snippets
-" Plug 'https://github.com/honza/vim-snippets' " Community maintained snippets for languages
-Plug 'https://github.com/rmehri01/onenord.nvim', {'branch': 'main'}
-Plug 'https://github.com/tpope/vim-surround' " Surrounding ysw)
-Plug 'https://github.com/preservim/nerdtree' " NerdTree
-Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
-Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
-" Plug 'https://github.com/kyazdani42/nvim-web-devicons' " Web-Developper's icons
-Plug 'https://github.com/vim-airline/vim-airline' " Status bar
+Plug 'https://github.com/lervag/vimtex'                               " Latex
+Plug 'https://github.com/peterbjorgensen/sved'                        " For emulating synctex with Evince 
+Plug 'https://github.com/sirver/UltiSnips'                            " Adds snippets  Vim/NVim
+Plug 'https://github.com/celdorwow/vim-snippets'                      " Forked vim-snippets
+Plug 'https://github.com/rmehri01/onenord.nvim', {'branch': 'main'}   " Colour themes
+Plug 'https://github.com/tpope/vim-surround'                          " Surrounding ysw)
+Plug 'https://github.com/preservim/nerdtree'                          " NerdTree
+Plug 'https://github.com/tpope/vim-commentary'                        " For Commenting gcc & gc
+Plug 'https://github.com/ryanoasis/vim-devicons'                      " Developer Icons
+Plug 'https://github.com/vim-airline/vim-airline'                     " Status bar
 Plug 'https://github.com/vim-airline/vim-airline-themes'
-Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
-Plug 'https://github.com/tc50cal/vim-terminal' " Adds :Terminal bash, :TerminalTab, :TerminalSplit, and :TerminalVSplit
+Plug 'https://github.com/rafi/awesome-vim-colorschemes'               " Retro Scheme
+Plug 'https://github.com/tc50cal/vim-terminal'                        " :Terminal, :TerminalTab, :TerminalSplit, :TerminalVSplit
 Plug 'https://github.com/hrsh7th/nvim-cmp'
-"Plug 'https://github.com/rhysd/clever-split.vim'
-"Plug 'nvim-treesitter/nvim-treesitter' " Adds org-mode
-"Plug 'nvim-orgmode/orgmode'            " ...
-
+Plug 'https://github.com/lukas-reineke/indent-blankline.nvim'         " Vertical bara indicating indentations 
+"Plug 'https://github.com/honza/vim-snippets'                         " Community maintained snippets for languages
+"Plug 'https://github.com/kyazdani42/nvim-web-devicons' " Web-Developper's icons
+"Plug 'https://github.com/rhysd/clever-split.vim'                     " Splits horizontally or vertically 
+"Plug 'https://github.com/p00f/nvim-ts-rainbow'                       " Adds rainbow brackets
+"Plug 'nvim-treesitter/nvim-treesitter'
+"Plug 'https://github.com/romgrk/barbar.nvim'                         " Adds clicable title in top bar 
+"Plug 'nvim-orgmode/orgmode'                                          " Org-mode
+" ...
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -45,7 +47,19 @@ let g:UltiSnipsEditSplit='context'
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " Vimtex
-autocmd FileType tex nmap <expr> <buffer> <F5> empty(glob(expand("%:p:r").".log")) ? ":echo expand(\"%:p:r\").'.log does not exist!'<CR>" : ":split \| view %:p:r.log<CR>"
+autocmd FileType tex nnoremap <expr> <buffer> <F5> empty(glob(expand("%:p:r").".log")) ? ":echo expand(\"%:p:r\").'.log does not exist!'<CR>" : ":split \| view %:p:r.log<CR>"
+" Indent blankline
+lua << EOF
+vim.opt.termguicolors = true
+vim.cmd [[highlight IndentBlanklineIndent1 guifg=#363f4e gui=nocombine]]
+vim.opt.list = true
+require("indent_blankline").setup {
+    buftype_exclude = {"terminal"},
+    char_highlight_list = {
+        "IndentBlanklineIndent1",
+    },
+}
+EOF
 
 " Set enconding to UTF-8
 set encoding=utf-8
